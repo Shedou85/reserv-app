@@ -1,0 +1,57 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "confirm": "Confirm"
+  },
+  "auth": {
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Forgot password?",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?"
+  },
+  "booking": {
+    "book_now": "Book now",
+    "select_service": "Select a service",
+    "select_date": "Select a date",
+    "select_time": "Select a time",
+    "your_details": "Your details",
+    "confirm_booking": "Confirm booking",
+    "booking_confirmed": "Booking confirmed!",
+    "booking_cancelled": "Booking cancelled",
+    "no_available_times": "No available times"
+  },
+  "dashboard": {
+    "my_business": "My business",
+    "calendar": "Calendar",
+    "services": "Services",
+    "clients": "Clients",
+    "bookings": "Bookings",
+    "reviews": "Reviews",
+    "marketing": "Marketing",
+    "stats": "Statistics",
+    "settings": "Settings"
+  },
+  "services": {
+    "add_service": "Add service",
+    "service_name": "Service name",
+    "duration": "Duration",
+    "price": "Price",
+    "description": "Description",
+    "minutes": "min."
+  }
+}

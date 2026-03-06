@@ -1,0 +1,57 @@
+{
+  "common": {
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "delete": "Ištrinti",
+    "edit": "Redaguoti",
+    "add": "Pridėti",
+    "search": "Ieškoti",
+    "loading": "Kraunama...",
+    "error": "Klaida",
+    "success": "Pavyko",
+    "back": "Grįžti",
+    "next": "Toliau",
+    "close": "Uždaryti",
+    "confirm": "Patvirtinti"
+  },
+  "auth": {
+    "login": "Prisijungti",
+    "register": "Registruotis",
+    "logout": "Atsijungti",
+    "email": "El. paštas",
+    "password": "Slaptažodis",
+    "forgot_password": "Pamiršote slaptažodį?",
+    "no_account": "Neturite paskyros?",
+    "has_account": "Jau turite paskyrą?"
+  },
+  "booking": {
+    "book_now": "Rezervuoti dabar",
+    "select_service": "Pasirinkite paslaugą",
+    "select_date": "Pasirinkite datą",
+    "select_time": "Pasirinkite laiką",
+    "your_details": "Jūsų duomenys",
+    "confirm_booking": "Patvirtinti rezervaciją",
+    "booking_confirmed": "Rezervacija patvirtinta!",
+    "booking_cancelled": "Rezervacija atšaukta",
+    "no_available_times": "Nėra laisvų laikų"
+  },
+  "dashboard": {
+    "my_business": "Mano verslas",
+    "calendar": "Kalendorius",
+    "services": "Paslaugos",
+    "clients": "Klientai",
+    "bookings": "Rezervacijos",
+    "reviews": "Atsiliepimai",
+    "marketing": "Rinkodara",
+    "stats": "Statistika",
+    "settings": "Nustatymai"
+  },
+  "services": {
+    "add_service": "Pridėti paslaugą",
+    "service_name": "Paslaugos pavadinimas",
+    "duration": "Trukmė",
+    "price": "Kaina",
+    "description": "Aprašymas",
+    "minutes": "min."
+  }
+}

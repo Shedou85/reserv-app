@@ -1,0 +1,57 @@
+{
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "search": "Поиск",
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "back": "Назад",
+    "next": "Далее",
+    "close": "Закрыть",
+    "confirm": "Подтвердить"
+  },
+  "auth": {
+    "login": "Войти",
+    "register": "Зарегистрироваться",
+    "logout": "Выйти",
+    "email": "Эл. почта",
+    "password": "Пароль",
+    "forgot_password": "Забыли пароль?",
+    "no_account": "Нет аккаунта?",
+    "has_account": "Уже есть аккаунт?"
+  },
+  "booking": {
+    "book_now": "Забронировать",
+    "select_service": "Выберите услугу",
+    "select_date": "Выберите дату",
+    "select_time": "Выберите время",
+    "your_details": "Ваши данные",
+    "confirm_booking": "Подтвердить бронирование",
+    "booking_confirmed": "Бронирование подтверждено!",
+    "booking_cancelled": "Бронирование отменено",
+    "no_available_times": "Нет свободного времени"
+  },
+  "dashboard": {
+    "my_business": "Мой бизнес",
+    "calendar": "Календарь",
+    "services": "Услуги",
+    "clients": "Клиенты",
+    "bookings": "Бронирования",
+    "reviews": "Отзывы",
+    "marketing": "Маркетинг",
+    "stats": "Статистика",
+    "settings": "Настройки"
+  },
+  "services": {
+    "add_service": "Добавить услугу",
+    "service_name": "Название услуги",
+    "duration": "Длительность",
+    "price": "Цена",
+    "description": "Описание",
+    "minutes": "мин."
+  }
+}
