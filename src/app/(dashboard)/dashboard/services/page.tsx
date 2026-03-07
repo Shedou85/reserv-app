@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Plus, MoreHorizontal, Pencil, Trash2, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import {
   Table,
@@ -34,7 +33,7 @@ export default function ServicesPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   const fetchServices = useCallback(async () => {
     const { data: business } = await supabase
@@ -44,13 +43,13 @@ export default function ServicesPage() {
 
     if (!business) return;
 
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("services")
       .select("*")
       .eq("business_id", business.id)
       .order("sort_order", { ascending: true });
 
-    if (data) setServices(data);
+    if (!error && data) setServices(data);
     setLoading(false);
   }, [supabase]);
 
@@ -59,10 +58,12 @@ export default function ServicesPage() {
   }, [fetchServices]);
 
   async function handleToggleActive(service: Service) {
-    await supabase
+    const { error } = await supabase
       .from("services")
       .update({ is_active: !service.is_active })
       .eq("id", service.id);
+
+    if (error) return;
 
     setServices((prev) =>
       prev.map((s) =>
@@ -72,7 +73,8 @@ export default function ServicesPage() {
   }
 
   async function handleDelete(serviceId: string) {
-    await supabase.from("services").delete().eq("id", serviceId);
+    const { error } = await supabase.from("services").delete().eq("id", serviceId);
+    if (error) return;
     setServices((prev) => prev.filter((s) => s.id !== serviceId));
   }
 

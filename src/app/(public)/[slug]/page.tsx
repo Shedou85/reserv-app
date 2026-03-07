@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { BookingWidget } from "@/components/booking/booking-widget";
 
@@ -40,14 +41,16 @@ export default async function BusinessPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Business header */}
-      <header className="border-b bg-white">
+      <header className="border-b bg-card">
         <div className="mx-auto max-w-2xl px-4 py-6">
           <div className="flex items-center gap-4">
             {business.logo_url && (
-              <img
+              <Image
                 src={business.logo_url}
                 alt={business.name}
-                className="h-16 w-16 rounded-full object-cover"
+                width={64}
+                height={64}
+                className="rounded-full object-cover"
               />
             )}
             <div>

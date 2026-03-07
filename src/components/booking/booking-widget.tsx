@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { format, addDays, startOfDay, setHours, setMinutes, isBefore, addMinutes } from "date-fns";
 import { lt, ru, enUS } from "date-fns/locale";
 import { CalendarCheck, Clock, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -37,8 +37,9 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState(false);
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
   const locale = DATE_LOCALES[i18n.language as keyof typeof DATE_LOCALES] || lt;
 
   // Generate next 14 days
@@ -102,12 +103,13 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
     if (!selectedService || !selectedDate || !selectedTime) return;
 
     setSubmitting(true);
+    setBookingError(false);
 
     const [h, m] = selectedTime.split(":").map(Number);
     const startAt = setMinutes(setHours(selectedDate, h), m);
     const endAt = addMinutes(startAt, selectedService.duration_minutes);
 
-    await supabase.from("bookings").insert({
+    const { error } = await supabase.from("bookings").insert({
       business_id: business.id,
       service_id: selectedService.id,
       client_name: clientName,
@@ -121,6 +123,12 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
     });
 
     setSubmitting(false);
+
+    if (error) {
+      setBookingError(true);
+      return;
+    }
+
     setStep("confirmed");
   }
 
@@ -302,6 +310,10 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
                 placeholder={t("booking.client_phone_placeholder")}
               />
             </div>
+
+            {bookingError && (
+              <p className="text-sm text-destructive">{t("common.error")}</p>
+            )}
 
             <Button type="submit" className="w-full" disabled={submitting}>
               {submitting ? t("common.loading") : t("booking.confirm_booking")}

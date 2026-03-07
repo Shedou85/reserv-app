@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,9 @@ export default function SettingsPage() {
   const [workingHours, setWorkingHours] = useState<WorkingHour[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   const fetchWorkingHours = useCallback(async () => {
     const { data: business } = await supabase
@@ -58,18 +59,23 @@ export default function SettingsPage() {
 
   async function handleSave() {
     setSaving(true);
+    setSaveStatus("idle");
 
-    for (const wh of workingHours) {
-      await supabase
-        .from("working_hours")
-        .update({
-          is_working: wh.is_working,
-          start_time: wh.start_time,
-          end_time: wh.end_time,
-        })
-        .eq("id", wh.id);
-    }
+    const results = await Promise.all(
+      workingHours.map((wh) =>
+        supabase
+          .from("working_hours")
+          .update({
+            is_working: wh.is_working,
+            start_time: wh.start_time,
+            end_time: wh.end_time,
+          })
+          .eq("id", wh.id)
+      )
+    );
 
+    const hasError = results.some((r) => r.error);
+    setSaveStatus(hasError ? "error" : "success");
     setSaving(false);
   }
 
@@ -149,9 +155,17 @@ export default function SettingsPage() {
             </div>
           ))}
 
-          <Button onClick={handleSave} disabled={saving} className="mt-4">
-            {saving ? t("common.loading") : t("common.save")}
-          </Button>
+          <div className="mt-4 flex items-center gap-3">
+            <Button onClick={handleSave} disabled={saving}>
+              {saving ? t("common.loading") : t("common.save")}
+            </Button>
+            {saveStatus === "success" && (
+              <span className="text-sm text-green-600">{t("common.success")}</span>
+            )}
+            {saveStatus === "error" && (
+              <span className="text-sm text-destructive">{t("common.error")}</span>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   format,
@@ -15,7 +15,6 @@ import { lt, ru, enUS } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
 import type { Database } from "@/types/database";
 
@@ -34,11 +33,15 @@ export default function CalendarPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
   const locale = DATE_LOCALES[i18n.language as keyof typeof DATE_LOCALES] || lt;
 
-  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(currentWeek, i));
-  const weekEnd = addDays(currentWeek, 7);
+  const weekDays = useMemo(
+    () => Array.from({ length: 7 }, (_, i) => addDays(currentWeek, i)),
+    [currentWeek]
+  );
+  const weekEnd = useMemo(() => addDays(currentWeek, 7), [currentWeek]);
+  const today = useMemo(() => new Date(), []);
 
   const fetchBookings = useCallback(async () => {
     setLoading(true);
@@ -48,9 +51,12 @@ export default function CalendarPage() {
       .select("id")
       .single();
 
-    if (!business) return;
+    if (!business) {
+      setLoading(false);
+      return;
+    }
 
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("bookings")
       .select("*, services(name)")
       .eq("business_id", business.id)
@@ -59,7 +65,7 @@ export default function CalendarPage() {
       .neq("status", "cancelled")
       .order("start_at", { ascending: true });
 
-    if (data) setBookings(data as Booking[]);
+    if (!error && data) setBookings(data as Booking[]);
     setLoading(false);
   }, [supabase, currentWeek, weekEnd]);
 
@@ -123,7 +129,7 @@ export default function CalendarPage() {
                 <div
                   key={day.toISOString()}
                   className={`border-r p-2 text-center ${
-                    isSameDay(day, new Date()) ? "bg-primary/5" : ""
+                    isSameDay(day, today) ? "bg-primary/5" : ""
                   }`}
                 >
                   <p className="text-xs text-muted-foreground">
@@ -131,7 +137,7 @@ export default function CalendarPage() {
                   </p>
                   <p
                     className={`text-lg font-semibold ${
-                      isSameDay(day, new Date())
+                      isSameDay(day, today)
                         ? "flex h-8 w-8 mx-auto items-center justify-center rounded-full bg-primary text-primary-foreground"
                         : ""
                     }`}
@@ -164,7 +170,7 @@ export default function CalendarPage() {
                       <div
                         key={day.toISOString()}
                         className={`min-h-[48px] border-r p-0.5 ${
-                          isSameDay(day, new Date()) ? "bg-primary/5" : ""
+                          isSameDay(day, today) ? "bg-primary/5" : ""
                         }`}
                       >
                         {dayBookings.map((booking) => (

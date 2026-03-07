@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Dialog,
@@ -36,12 +36,13 @@ const DURATION_OPTIONS = [15, 30, 45, 60, 75, 90, 120, 150, 180];
 export function ServiceDialog({ open, onClose, service }: ServiceDialogProps) {
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [durationMinutes, setDurationMinutes] = useState("60");
   const [price, setPrice] = useState("");
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     if (service) {
@@ -55,11 +56,13 @@ export function ServiceDialog({ open, onClose, service }: ServiceDialogProps) {
       setDurationMinutes("60");
       setPrice("");
     }
+    setError(false);
   }, [service, open]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
+    setError(false);
 
     const { data: business } = await supabase
       .from("businesses")
@@ -68,25 +71,30 @@ export function ServiceDialog({ open, onClose, service }: ServiceDialogProps) {
 
     if (!business) {
       setSaving(false);
+      setError(true);
       return;
     }
 
-    const serviceData = {
-      business_id: business.id,
+    const editableFields = {
       name,
       description: description || null,
       duration_minutes: parseInt(durationMinutes),
       price: parseFloat(price),
       currency: "EUR",
-      is_active: true,
-      sort_order: 0,
     };
 
     if (service) {
-      await supabase
+      // Update only editable fields — preserve is_active and sort_order
+      const { error: updateError } = await supabase
         .from("services")
-        .update(serviceData)
+        .update(editableFields)
         .eq("id", service.id);
+
+      if (updateError) {
+        setSaving(false);
+        setError(true);
+        return;
+      }
     } else {
       // Get max sort_order for new service
       const { data: existing } = await supabase
@@ -96,11 +104,22 @@ export function ServiceDialog({ open, onClose, service }: ServiceDialogProps) {
         .order("sort_order", { ascending: false })
         .limit(1);
 
-      serviceData.sort_order = existing && existing.length > 0
+      const sortOrder = existing && existing.length > 0
         ? existing[0].sort_order + 1
         : 0;
 
-      await supabase.from("services").insert(serviceData);
+      const { error: insertError } = await supabase.from("services").insert({
+        ...editableFields,
+        business_id: business.id,
+        is_active: true,
+        sort_order: sortOrder,
+      });
+
+      if (insertError) {
+        setSaving(false);
+        setError(true);
+        return;
+      }
     }
 
     setSaving(false);
@@ -184,6 +203,10 @@ export function ServiceDialog({ open, onClose, service }: ServiceDialogProps) {
               </div>
             </div>
           </div>
+
+          {error && (
+            <p className="text-sm text-destructive">{t("common.error")}</p>
+          )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
