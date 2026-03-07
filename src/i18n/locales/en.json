@@ -47,7 +47,15 @@
     "confirm_booking": "Confirm booking",
     "booking_confirmed": "Booking confirmed!",
     "booking_cancelled": "Booking cancelled",
-    "no_available_times": "No available times"
+    "no_available_times": "No available times",
+    "at": "·",
+    "confirmation_message": "Your booking has been received. You will receive a confirmation email shortly.",
+    "client_name": "Name",
+    "client_email": "Email",
+    "client_phone": "Phone",
+    "client_name_placeholder": "Your full name",
+    "client_email_placeholder": "your@email.com",
+    "client_phone_placeholder": "+370..."
   },
   "dashboard": {
     "my_business": "My business",
@@ -70,11 +78,34 @@
   },
   "services": {
     "add_service": "Add service",
+    "edit_service": "Edit service",
     "service_name": "Service name",
     "duration": "Duration",
     "price": "Price",
     "description": "Description",
-    "minutes": "min."
+    "minutes": "min.",
+    "hours": "h",
+    "status": "Status",
+    "manage_description": "Manage your offered services",
+    "no_services": "You don't have any services yet",
+    "add_first_service": "Add your first service",
+    "name_placeholder": "e.g. Men's haircut",
+    "description_placeholder": "Short description of the service"
+  },
+  "settings": {
+    "settings_description": "Manage your business settings",
+    "working_hours": "Working hours",
+    "working_hours_description": "Set your working hours for each day of the week",
+    "day_off": "Day off",
+    "days": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    }
   },
   "business": {
     "create_title": "Create your business profile",

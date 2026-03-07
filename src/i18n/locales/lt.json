@@ -47,7 +47,15 @@
     "confirm_booking": "Patvirtinti rezervaciją",
     "booking_confirmed": "Rezervacija patvirtinta!",
     "booking_cancelled": "Rezervacija atšaukta",
-    "no_available_times": "Nėra laisvų laikų"
+    "no_available_times": "Nėra laisvų laikų",
+    "at": "·",
+    "confirmation_message": "Jūsų rezervacija gauta. Netrukus gausite patvirtinimą el. paštu.",
+    "client_name": "Vardas",
+    "client_email": "El. paštas",
+    "client_phone": "Telefonas",
+    "client_name_placeholder": "Jūsų vardas ir pavardė",
+    "client_email_placeholder": "jusu@pastas.lt",
+    "client_phone_placeholder": "+370..."
   },
   "dashboard": {
     "my_business": "Mano verslas",
@@ -70,11 +78,34 @@
   },
   "services": {
     "add_service": "Pridėti paslaugą",
+    "edit_service": "Redaguoti paslaugą",
     "service_name": "Paslaugos pavadinimas",
     "duration": "Trukmė",
     "price": "Kaina",
     "description": "Aprašymas",
-    "minutes": "min."
+    "minutes": "min.",
+    "hours": "val.",
+    "status": "Būsena",
+    "manage_description": "Valdykite savo teikiamas paslaugas",
+    "no_services": "Dar neturite paslaugų",
+    "add_first_service": "Pridėti pirmą paslaugą",
+    "name_placeholder": "pvz. Vyriškas kirpimas",
+    "description_placeholder": "Trumpas paslaugos aprašymas"
+  },
+  "settings": {
+    "settings_description": "Valdykite savo verslo nustatymus",
+    "working_hours": "Darbo laikas",
+    "working_hours_description": "Nustatykite savo darbo valandas kiekvienai savaitės dienai",
+    "day_off": "Nedarbo diena",
+    "days": {
+      "0": "Sekmadienis",
+      "1": "Pirmadienis",
+      "2": "Antradienis",
+      "3": "Trečiadienis",
+      "4": "Ketvirtadienis",
+      "5": "Penktadienis",
+      "6": "Šeštadienis"
+    }
   },
   "business": {
     "create_title": "Sukurkite savo verslo profilį",

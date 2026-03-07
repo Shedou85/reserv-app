@@ -47,7 +47,15 @@
     "confirm_booking": "Подтвердить бронь",
     "booking_confirmed": "Бронь подтверждена!",
     "booking_cancelled": "Бронь отменена",
-    "no_available_times": "Нет свободного времени"
+    "no_available_times": "Нет свободного времени",
+    "at": "·",
+    "confirmation_message": "Ваша бронь получена. Вскоре вы получите подтверждение по электронной почте.",
+    "client_name": "Имя",
+    "client_email": "Эл. почта",
+    "client_phone": "Телефон",
+    "client_name_placeholder": "Ваше имя и фамилия",
+    "client_email_placeholder": "ваш@email.com",
+    "client_phone_placeholder": "+370..."
   },
   "dashboard": {
     "my_business": "Мой бизнес",
@@ -70,11 +78,34 @@
   },
   "services": {
     "add_service": "Добавить услугу",
+    "edit_service": "Редактировать услугу",
     "service_name": "Название услуги",
     "duration": "Длительность",
     "price": "Цена",
     "description": "Описание",
-    "minutes": "мин."
+    "minutes": "мин.",
+    "hours": "ч.",
+    "status": "Статус",
+    "manage_description": "Управляйте своими услугами",
+    "no_services": "У вас пока нет услуг",
+    "add_first_service": "Добавить первую услугу",
+    "name_placeholder": "напр. Мужская стрижка",
+    "description_placeholder": "Краткое описание услуги"
+  },
+  "settings": {
+    "settings_description": "Управляйте настройками бизнеса",
+    "working_hours": "Рабочее время",
+    "working_hours_description": "Установите рабочие часы на каждый день недели",
+    "day_off": "Выходной",
+    "days": {
+      "0": "Воскресенье",
+      "1": "Понедельник",
+      "2": "Вторник",
+      "3": "Среда",
+      "4": "Четверг",
+      "5": "Пятница",
+      "6": "Суббота"
+    }
   },
   "business": {
     "create_title": "Создайте профиль бизнеса",
