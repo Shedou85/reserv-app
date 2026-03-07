@@ -12,7 +12,12 @@
     "back": "Back",
     "next": "Next",
     "close": "Close",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "or": "or"
+  },
+  "app": {
+    "name": "Rezervk.lt",
+    "tagline": "Simple reservations for your business"
   },
   "auth": {
     "login": "Log in",
@@ -20,9 +25,18 @@
     "logout": "Log out",
     "email": "Email",
     "password": "Password",
+    "full_name": "Full name",
     "forgot_password": "Forgot password?",
     "no_account": "Don't have an account?",
-    "has_account": "Already have an account?"
+    "has_account": "Already have an account?",
+    "login_title": "Sign in to your account",
+    "login_description": "Enter your details below",
+    "register_title": "Create an account",
+    "register_description": "Start accepting reservations in minutes",
+    "login_with_google": "Sign in with Google",
+    "register_success": "Account created! Check your email.",
+    "login_error": "Invalid email or password",
+    "register_error": "Could not create account"
   },
   "booking": {
     "book_now": "Book now",
@@ -44,7 +58,15 @@
     "reviews": "Reviews",
     "marketing": "Marketing",
     "stats": "Statistics",
-    "settings": "Settings"
+    "settings": "Settings",
+    "overview": "Overview",
+    "today": "Today",
+    "upcoming_bookings": "Upcoming bookings",
+    "no_bookings_today": "No bookings today",
+    "total_bookings": "Total bookings",
+    "total_revenue": "Revenue",
+    "total_clients": "Clients",
+    "rating": "Rating"
   },
   "services": {
     "add_service": "Add service",
@@ -53,5 +75,26 @@
     "price": "Price",
     "description": "Description",
     "minutes": "min."
+  },
+  "business": {
+    "create_title": "Create your business profile",
+    "create_description": "Fill in your business details",
+    "business_name": "Business name",
+    "business_slug": "Link (URL)",
+    "business_category": "Category",
+    "business_phone": "Phone",
+    "business_email": "Email",
+    "business_address": "Address",
+    "business_city": "City",
+    "business_description": "Description",
+    "categories": {
+      "hair": "Hair salon",
+      "beauty": "Beauty salon",
+      "massage": "Massage",
+      "physio": "Physiotherapy",
+      "trainer": "Personal trainer",
+      "nails": "Nail care",
+      "other": "Other"
+    }
   }
 }

@@ -12,7 +12,12 @@
     "back": "Назад",
     "next": "Далее",
     "close": "Закрыть",
-    "confirm": "Подтвердить"
+    "confirm": "Подтвердить",
+    "or": "или"
+  },
+  "app": {
+    "name": "Rezervk.lt",
+    "tagline": "Простые бронирования для вашего бизнеса"
   },
   "auth": {
     "login": "Войти",
@@ -20,9 +25,18 @@
     "logout": "Выйти",
     "email": "Эл. почта",
     "password": "Пароль",
+    "full_name": "Имя и фамилия",
     "forgot_password": "Забыли пароль?",
     "no_account": "Нет аккаунта?",
-    "has_account": "Уже есть аккаунт?"
+    "has_account": "Уже есть аккаунт?",
+    "login_title": "Войдите в аккаунт",
+    "login_description": "Введите свои данные ниже",
+    "register_title": "Создайте аккаунт",
+    "register_description": "Начните принимать бронирования за несколько минут",
+    "login_with_google": "Войти через Google",
+    "register_success": "Аккаунт создан! Проверьте почту.",
+    "login_error": "Неверная почта или пароль",
+    "register_error": "Не удалось создать аккаунт"
   },
   "booking": {
     "book_now": "Забронировать",
@@ -30,9 +44,9 @@
     "select_date": "Выберите дату",
     "select_time": "Выберите время",
     "your_details": "Ваши данные",
-    "confirm_booking": "Подтвердить бронирование",
-    "booking_confirmed": "Бронирование подтверждено!",
-    "booking_cancelled": "Бронирование отменено",
+    "confirm_booking": "Подтвердить бронь",
+    "booking_confirmed": "Бронь подтверждена!",
+    "booking_cancelled": "Бронь отменена",
     "no_available_times": "Нет свободного времени"
   },
   "dashboard": {
@@ -44,7 +58,15 @@
     "reviews": "Отзывы",
     "marketing": "Маркетинг",
     "stats": "Статистика",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "overview": "Обзор",
+    "today": "Сегодня",
+    "upcoming_bookings": "Предстоящие бронирования",
+    "no_bookings_today": "Сегодня бронирований нет",
+    "total_bookings": "Всего бронирований",
+    "total_revenue": "Доход",
+    "total_clients": "Клиентов",
+    "rating": "Рейтинг"
   },
   "services": {
     "add_service": "Добавить услугу",
@@ -53,5 +75,26 @@
     "price": "Цена",
     "description": "Описание",
     "minutes": "мин."
+  },
+  "business": {
+    "create_title": "Создайте профиль бизнеса",
+    "create_description": "Заполните информацию о вашем бизнесе",
+    "business_name": "Название бизнеса",
+    "business_slug": "Ссылка (URL)",
+    "business_category": "Категория",
+    "business_phone": "Телефон",
+    "business_email": "Эл. почта",
+    "business_address": "Адрес",
+    "business_city": "Город",
+    "business_description": "Описание",
+    "categories": {
+      "hair": "Парикмахерская",
+      "beauty": "Салон красоты",
+      "massage": "Массаж",
+      "physio": "Физиотерапия",
+      "trainer": "Персональный тренер",
+      "nails": "Маникюр",
+      "other": "Другое"
+    }
   }
 }
