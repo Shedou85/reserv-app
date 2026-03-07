@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
@@ -39,6 +40,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import type { Database } from "@/types/database";
@@ -57,7 +59,7 @@ export function DashboardShell({ user, business, children }: DashboardShellProps
   const pathname = usePathname();
   const router = useRouter();
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { href: "/dashboard", icon: LayoutDashboard, label: t("dashboard.overview") },
     { href: "/dashboard/calendar", icon: Calendar, label: t("dashboard.calendar") },
     { href: "/dashboard/bookings", icon: CalendarCheck, label: t("dashboard.bookings") },
@@ -67,7 +69,7 @@ export function DashboardShell({ user, business, children }: DashboardShellProps
     { href: "/dashboard/marketing", icon: Megaphone, label: t("dashboard.marketing") },
     { href: "/dashboard/stats", icon: BarChart3, label: t("dashboard.stats") },
     { href: "/dashboard/settings", icon: Settings, label: t("dashboard.settings") },
-  ];
+  ], [t]);
 
   function getInitials(name: string) {
     return name
@@ -80,7 +82,8 @@ export function DashboardShell({ user, business, children }: DashboardShellProps
 
   async function handleLogout() {
     const supabase = createClient();
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+    if (error) return;
     router.push("/login");
     router.refresh();
   }
@@ -114,7 +117,7 @@ export function DashboardShell({ user, business, children }: DashboardShellProps
                 {navItems.map((item) => (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
-                      isActive={pathname === item.href}
+                      isActive={item.href === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(item.href)}
                       render={<Link href={item.href} />}
                     >
                       <item.icon className="size-4" />
@@ -169,10 +172,11 @@ export function DashboardShell({ user, business, children }: DashboardShellProps
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
-          <h1 className="text-sm font-medium">
+          <h1 className="text-sm font-medium flex-1">
             {navItems.find((item) => item.href === pathname)?.label ||
               t("dashboard.overview")}
           </h1>
+          <ThemeToggle />
         </header>
         <main className="flex-1 p-4 md:p-6">{children}</main>
       </SidebarInset>

@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { ThemeProvider } from "next-themes";
 import "@/i18n/config";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    // i18n is initialized by importing config
-  }, []);
-
-  return <TooltipProvider>{children}</TooltipProvider>;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <TooltipProvider>{children}</TooltipProvider>
+    </ThemeProvider>
+  );
 }

@@ -127,5 +127,8 @@
       "nails": "Nagų priežiūra",
       "other": "Kita"
     }
+  },
+  "theme": {
+    "toggle": "Perjungti temą"
   }
 }

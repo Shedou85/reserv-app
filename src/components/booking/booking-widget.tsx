@@ -6,7 +6,6 @@ import { format, addDays, startOfDay, setHours, setMinutes, isBefore, addMinutes
 import { lt, ru, enUS } from "date-fns/locale";
 import { CalendarCheck, Clock, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -42,9 +41,12 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
   const supabase = useMemo(() => createClient(), []);
   const locale = DATE_LOCALES[i18n.language as keyof typeof DATE_LOCALES] || lt;
 
-  // Generate next 14 days
-  const today = startOfDay(new Date());
-  const availableDates = Array.from({ length: 14 }, (_, i) => addDays(today, i));
+  // Generate next 14 days (memoized to prevent re-creation on each render)
+  const today = useMemo(() => startOfDay(new Date()), []);
+  const availableDates = useMemo(
+    () => Array.from({ length: 14 }, (_, i) => addDays(today, i)),
+    [today]
+  );
 
   function getWorkingHoursForDay(date: Date): WorkingHour | undefined {
     const dayOfWeek = date.getDay();
@@ -136,20 +138,20 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
     <div className="space-y-6">
       {/* Progress indicator */}
       {step !== "confirmed" && (
-        <div className="flex items-center gap-2">
+        <div className="glass rounded-full px-4 py-3 flex items-center gap-3">
           {step !== "service" && (
-            <Button variant="ghost" size="icon" onClick={handleBack}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={handleBack}>
               <ArrowLeft className="h-4 w-4" />
             </Button>
           )}
-          <div className="flex gap-1.5">
+          <div className="flex gap-1.5 flex-1">
             {(["service", "date", "time", "details"] as Step[]).map((s, i) => (
               <div
                 key={s}
-                className={`h-1.5 w-8 rounded-full ${
+                className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
                   i <= ["service", "date", "time", "details"].indexOf(step)
                     ? "bg-primary"
-                    : "bg-muted"
+                    : "bg-primary/15"
                 }`}
               />
             ))}
@@ -163,29 +165,27 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
           <h2 className="text-xl font-semibold">{t("booking.select_service")}</h2>
           <div className="space-y-3">
             {services.map((service) => (
-              <Card
+              <div
                 key={service.id}
-                className="cursor-pointer transition-colors hover:bg-accent"
+                className="glass rounded-2xl p-4 cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.01] flex items-center justify-between"
                 onClick={() => handleSelectService(service)}
               >
-                <CardContent className="flex items-center justify-between p-4">
-                  <div>
-                    <p className="font-medium">{service.name}</p>
-                    {service.description && (
-                      <p className="text-sm text-muted-foreground">
-                        {service.description}
-                      </p>
-                    )}
-                    <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-3.5 w-3.5" />
-                      {service.duration_minutes} {t("services.minutes")}
-                    </div>
+                <div>
+                  <p className="font-medium">{service.name}</p>
+                  {service.description && (
+                    <p className="text-sm text-muted-foreground">
+                      {service.description}
+                    </p>
+                  )}
+                  <div className="mt-1.5 flex items-center gap-2 text-sm text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    {service.duration_minutes} {t("services.minutes")}
                   </div>
-                  <Badge variant="secondary" className="text-base">
-                    €{service.price.toFixed(2)}
-                  </Badge>
-                </CardContent>
-              </Card>
+                </div>
+                <Badge variant="secondary" className="text-base font-semibold px-3 py-1 rounded-xl">
+                  €{service.price.toFixed(2)}
+                </Badge>
+              </div>
             ))}
           </div>
         </div>
@@ -201,23 +201,26 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
               const isAvailable = !!wh;
 
               return (
-                <Button
+                <button
                   key={date.toISOString()}
-                  variant={isAvailable ? "outline" : "ghost"}
-                  className={`h-auto flex-col py-3 ${!isAvailable ? "opacity-40" : ""}`}
+                  className={`glass rounded-2xl h-auto flex flex-col items-center py-4 transition-all duration-200 ${
+                    isAvailable
+                      ? "hover:shadow-lg hover:scale-[1.02] cursor-pointer"
+                      : "opacity-30 cursor-not-allowed"
+                  }`}
                   disabled={!isAvailable}
                   onClick={() => handleSelectDate(date)}
                 >
                   <span className="text-xs text-muted-foreground">
                     {format(date, "EEEE", { locale })}
                   </span>
-                  <span className="text-lg font-semibold">
+                  <span className="text-xl font-bold mt-0.5">
                     {format(date, "d", { locale })}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     {format(date, "MMM", { locale })}
                   </span>
-                </Button>
+                </button>
               );
             })}
           </div>
@@ -243,13 +246,13 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
             return (
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                 {slots.map((time) => (
-                  <Button
+                  <button
                     key={time}
-                    variant="outline"
+                    className="glass rounded-xl py-3 text-sm font-medium transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:scale-[1.03]"
                     onClick={() => handleSelectTime(time)}
                   >
                     {time}
-                  </Button>
+                  </button>
                 ))}
               </div>
             );
@@ -263,22 +266,20 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
           <h2 className="text-xl font-semibold">{t("booking.your_details")}</h2>
 
           {/* Summary */}
-          <Card>
-            <CardContent className="p-4 text-sm">
-              <div className="flex items-center gap-2">
-                <CalendarCheck className="h-4 w-4 text-primary" />
-                <span className="font-medium">{selectedService?.name}</span>
-              </div>
-              <p className="mt-1 text-muted-foreground">
-                {selectedDate && format(selectedDate, "EEEE, d MMMM", { locale })} {t("booking.at")} {selectedTime}
-              </p>
-              <p className="text-muted-foreground">
-                {selectedService?.duration_minutes} {t("services.minutes")} — €{selectedService?.price.toFixed(2)}
-              </p>
-            </CardContent>
-          </Card>
+          <div className="glass rounded-2xl p-4 text-sm">
+            <div className="flex items-center gap-2">
+              <CalendarCheck className="h-4 w-4 text-primary" />
+              <span className="font-medium">{selectedService?.name}</span>
+            </div>
+            <p className="mt-1 text-muted-foreground">
+              {selectedDate && format(selectedDate, "EEEE, d MMMM", { locale })} {t("booking.at")} {selectedTime}
+            </p>
+            <p className="text-muted-foreground">
+              {selectedService?.duration_minutes} {t("services.minutes")} — €{selectedService?.price.toFixed(2)}
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="glass-strong rounded-2xl p-6 space-y-4">
             <div className="space-y-2">
               <Label htmlFor="clientName">{t("booking.client_name")}</Label>
               <Input
@@ -315,7 +316,7 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
               <p className="text-sm text-destructive">{t("common.error")}</p>
             )}
 
-            <Button type="submit" className="w-full" disabled={submitting}>
+            <Button type="submit" className="w-full rounded-xl h-12 text-base font-semibold" disabled={submitting}>
               {submitting ? t("common.loading") : t("booking.confirm_booking")}
             </Button>
           </form>
@@ -324,21 +325,23 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
 
       {/* Step 5: Confirmation */}
       {step === "confirmed" && (
-        <Card>
-          <CardContent className="flex flex-col items-center py-12 text-center">
-            <CheckCircle2 className="mb-4 h-16 w-16 text-green-500" />
+        <div className="glass-strong rounded-3xl">
+          <div className="flex flex-col items-center py-12 text-center px-6">
+            <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+              <CheckCircle2 className="h-10 w-10 text-primary" />
+            </div>
             <h2 className="text-2xl font-bold">{t("booking.booking_confirmed")}</h2>
             <p className="mt-2 text-muted-foreground">
               {t("booking.confirmation_message")}
             </p>
-            <div className="mt-6 text-sm">
+            <div className="mt-6 glass rounded-xl px-6 py-3 text-sm">
               <p className="font-medium">{selectedService?.name}</p>
               <p className="text-muted-foreground">
                 {selectedDate && format(selectedDate, "EEEE, d MMMM", { locale })} {t("booking.at")} {selectedTime}
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );
