@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { Logo } from "@/components/ui/logo";
 
 export function LandingFooter() {
   const { t } = useTranslation();
@@ -12,14 +12,7 @@ export function LandingFooter() {
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-                Rz
-              </span>
-              <span className="text-lg font-bold tracking-tight">
-                Rezervk<span className="text-primary">.lt</span>
-              </span>
-            </Link>
+            <Logo />
             <p className="mt-3 text-sm text-muted-foreground">
               {t("app.tagline")}
             </p>
