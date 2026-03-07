@@ -195,7 +195,7 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
       {step === "date" && (
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">{t("booking.select_date")}</h2>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
             {availableDates.map((date) => {
               const wh = getWorkingHoursForDay(date);
               const isAvailable = !!wh;
@@ -244,7 +244,7 @@ export function BookingWidget({ business, services, workingHours }: BookingWidge
               );
             }
             return (
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                 {slots.map((time) => (
                   <button
                     key={time}

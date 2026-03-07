@@ -112,6 +112,7 @@
     "create_description": "Fill in your business details",
     "business_name": "Business name",
     "business_slug": "Link (URL)",
+    "slug_taken": "This link is already taken. Please choose another.",
     "business_category": "Category",
     "business_phone": "Phone",
     "business_email": "Email",

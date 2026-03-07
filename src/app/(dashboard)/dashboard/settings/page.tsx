@@ -113,9 +113,9 @@ export default function SettingsPage() {
           {sortedHours.map((wh) => (
             <div
               key={wh.day_of_week}
-              className="flex items-center gap-4 rounded-lg border p-3"
+              className="flex flex-col gap-2 rounded-lg border p-3 sm:flex-row sm:items-center sm:gap-4"
             >
-              <div className="flex w-28 items-center gap-3">
+              <div className="flex items-center gap-3 sm:w-28">
                 <Switch
                   checked={wh.is_working}
                   onCheckedChange={(checked) =>
@@ -128,27 +128,27 @@ export default function SettingsPage() {
               </div>
 
               {wh.is_working ? (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 pl-10 sm:pl-0">
                   <Input
                     type="time"
                     value={wh.start_time}
                     onChange={(e) =>
                       updateHour(wh.day_of_week, "start_time", e.target.value)
                     }
-                    className="w-32"
+                    className="w-full sm:w-32"
                   />
-                  <span className="text-muted-foreground">—</span>
+                  <span className="text-muted-foreground shrink-0">—</span>
                   <Input
                     type="time"
                     value={wh.end_time}
                     onChange={(e) =>
                       updateHour(wh.day_of_week, "end_time", e.target.value)
                     }
-                    className="w-32"
+                    className="w-full sm:w-32"
                   />
                 </div>
               ) : (
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm text-muted-foreground pl-10 sm:pl-0">
                   {t("settings.day_off")}
                 </span>
               )}

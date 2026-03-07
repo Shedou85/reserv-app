@@ -62,19 +62,19 @@ export default async function BusinessPage({ params }: PageProps) {
     <div className="bg-booking-gradient min-h-screen">
       {/* Business header */}
       <header className="glass-strong border-b border-white/10">
-        <div className="mx-auto max-w-2xl px-4 py-8">
-          <div className="flex items-center gap-4">
+        <div className="mx-auto max-w-2xl px-4 py-6 sm:py-8">
+          <div className="flex items-center gap-3 sm:gap-4">
             {business.logo_url && (
               <Image
                 src={business.logo_url}
                 alt={business.name}
                 width={72}
                 height={72}
-                className="rounded-2xl object-cover shadow-lg ring-2 ring-white/20"
+                className="h-14 w-14 rounded-xl object-cover shadow-lg ring-2 ring-white/20 sm:h-[72px] sm:w-[72px] sm:rounded-2xl"
               />
             )}
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">{business.name}</h1>
+            <div className="min-w-0">
+              <h1 className="text-xl font-bold tracking-tight sm:text-2xl truncate">{business.name}</h1>
               {business.description && (
                 <p className="mt-1 text-muted-foreground">{business.description}</p>
               )}
@@ -89,7 +89,7 @@ export default async function BusinessPage({ params }: PageProps) {
       </header>
 
       {/* Booking widget */}
-      <main className="mx-auto max-w-2xl px-4 py-8">
+      <main className="mx-auto max-w-2xl px-4 py-6 sm:py-8">
         <BookingWidget
           business={business}
           services={services || []}

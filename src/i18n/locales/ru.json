@@ -112,6 +112,7 @@
     "create_description": "Заполните информацию о вашем бизнесе",
     "business_name": "Название бизнеса",
     "business_slug": "Ссылка (URL)",
+    "slug_taken": "Эта ссылка уже занята. Выберите другую.",
     "business_category": "Категория",
     "business_phone": "Телефон",
     "business_email": "Эл. почта",

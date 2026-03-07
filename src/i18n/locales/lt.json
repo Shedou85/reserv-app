@@ -112,6 +112,7 @@
     "create_description": "Užpildykite informaciją apie savo verslą",
     "business_name": "Verslo pavadinimas",
     "business_slug": "Nuoroda (URL)",
+    "slug_taken": "Ši nuoroda jau užimta. Pasirinkite kitą.",
     "business_category": "Kategorija",
     "business_phone": "Telefonas",
     "business_email": "El. paštas",

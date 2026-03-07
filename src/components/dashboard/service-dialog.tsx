@@ -169,7 +169,7 @@ export function ServiceDialog({ open, onClose, service }: ServiceDialogProps) {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="duration">{t("services.duration")}</Label>
-              <Select value={durationMinutes} onValueChange={setDurationMinutes}>
+              <Select value={durationMinutes} onValueChange={(v) => v && setDurationMinutes(v)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
