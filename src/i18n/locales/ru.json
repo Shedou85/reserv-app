@@ -74,7 +74,20 @@
     "total_bookings": "Всего бронирований",
     "total_revenue": "Доход",
     "total_clients": "Клиентов",
-    "rating": "Рейтинг"
+    "rating": "Рейтинг",
+    "today_bookings": "Бронирования сегодня",
+    "upcoming_next": "Предстоящие бронирования",
+    "no_upcoming": "Нет предстоящих бронирований",
+    "quick_actions": "Быстрые действия",
+    "view_calendar": "Календарь",
+    "add_service": "Добавить услугу",
+    "period_all_time": "Всего",
+    "period_today": "Сегодня",
+    "status_pending": "Ожидание",
+    "status_confirmed": "Подтверждено",
+    "status_completed": "Выполнено",
+    "status_cancelled": "Отменено",
+    "status_no_show": "Неявка"
   },
   "services": {
     "add_service": "Добавить услугу",

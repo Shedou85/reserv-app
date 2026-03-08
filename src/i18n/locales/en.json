@@ -74,7 +74,20 @@
     "total_bookings": "Total bookings",
     "total_revenue": "Revenue",
     "total_clients": "Clients",
-    "rating": "Rating"
+    "rating": "Rating",
+    "today_bookings": "Today's bookings",
+    "upcoming_next": "Upcoming bookings",
+    "no_upcoming": "No upcoming bookings",
+    "quick_actions": "Quick actions",
+    "view_calendar": "Calendar",
+    "add_service": "Add service",
+    "period_all_time": "All time",
+    "period_today": "Today",
+    "status_pending": "Pending",
+    "status_confirmed": "Confirmed",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled",
+    "status_no_show": "No show"
   },
   "services": {
     "add_service": "Add service",

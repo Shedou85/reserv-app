@@ -74,7 +74,20 @@
     "total_bookings": "Viso rezervacijų",
     "total_revenue": "Pajamos",
     "total_clients": "Klientų",
-    "rating": "Įvertinimas"
+    "rating": "Įvertinimas",
+    "today_bookings": "Šiandienos rezervacijos",
+    "upcoming_next": "Artėjančios rezervacijos",
+    "no_upcoming": "Nėra artėjančių rezervacijų",
+    "quick_actions": "Greiti veiksmai",
+    "view_calendar": "Kalendorius",
+    "add_service": "Pridėti paslaugą",
+    "period_all_time": "Viso",
+    "period_today": "Šiandien",
+    "status_pending": "Laukiama",
+    "status_confirmed": "Patvirtinta",
+    "status_completed": "Įvykdyta",
+    "status_cancelled": "Atšaukta",
+    "status_no_show": "Neatvyko"
   },
   "services": {
     "add_service": "Pridėti paslaugą",
